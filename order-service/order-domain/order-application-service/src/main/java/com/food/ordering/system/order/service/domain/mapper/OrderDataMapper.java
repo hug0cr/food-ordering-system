@@ -7,6 +7,7 @@ import com.food.ordering.system.domain.value.object.RestaurantId;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import com.food.ordering.system.order.service.domain.dto.create.OrderAddress;
+import com.food.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.entity.OrderItem;
 import com.food.ordering.system.order.service.domain.entity.Product;
@@ -33,7 +34,7 @@ public class OrderDataMapper {
     public Order createOrderCommandToOrder(CreateOrderCommand createOrderCommand) {
         return Order.Builder.builder()
                 .customerId(new CustomerId(createOrderCommand.getCustomerId()))
-                .deliveryAdress(orderAdressToStreetAdress(createOrderCommand.getAddress()))
+                .deliveryAdress(orderAddressToStreetAddress(createOrderCommand.getAddress()))
                 .price(new Money(createOrderCommand.getPrice()))
                 .items(orderItemsToOrderItemsEntities(createOrderCommand.getItems()))
                 .build();
@@ -43,6 +44,14 @@ public class OrderDataMapper {
         return CreateOrderResponse.builder()
                 .orderTrackId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
+                .build();
+    }
+
+    public TrackOrderResponse orderToTrackOrderResponse(Order order) {
+        return TrackOrderResponse.builder()
+                .ordeerTrackingId(order.getTrackingId().getValue())
+                .orderStatus(order.getOrderStatus())
+                .failureMessages(order.getFailureMessages())
                 .build();
     }
 
@@ -58,7 +67,7 @@ public class OrderDataMapper {
                 .collect(Collectors.toList());
     }
 
-    private StreetAddress orderAdressToStreetAdress(OrderAddress orderAddress) {
+    private StreetAddress orderAddressToStreetAddress(OrderAddress orderAddress) {
         return new StreetAddress(
                 UUID.randomUUID(),
                 orderAddress.getStreet(),
