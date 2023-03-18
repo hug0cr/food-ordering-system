@@ -49,7 +49,7 @@ public class OrderDataMapper {
 
     public TrackOrderResponse orderToTrackOrderResponse(Order order) {
         return TrackOrderResponse.builder()
-                .ordeerTrackingId(order.getTrackingId().getValue())
+                .orderTrackingId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
                 .failureMessages(order.getFailureMessages())
                 .build();

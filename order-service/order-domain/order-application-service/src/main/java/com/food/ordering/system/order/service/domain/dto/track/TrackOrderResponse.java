@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TrackOrderResponse {
     @NonNull
-    private final UUID ordeerTrackingId;
+    private final UUID orderTrackingId;
     @NonNull
     private final OrderStatus orderStatus;
     private final List<String> failureMessages;
