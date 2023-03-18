@@ -38,6 +38,10 @@ public class Money {
         return new Money(setScale(this.amount.multiply(new BigDecimal(multiplier))));
     }
 
+    private BigDecimal setScale(BigDecimal input) {
+        return input.setScale(2, RoundingMode.HALF_EVEN);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,7 +55,4 @@ public class Money {
         return Objects.hash(amount);
     }
 
-    private BigDecimal setScale(BigDecimal input) {
-        return input.setScale(2, RoundingMode.HALF_EVEN);
-    }
 }
