@@ -26,6 +26,7 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class PaymentRequestHelper {
+
     private final PaymentDomainService paymentDomainService;
     private final PaymentDataMapper paymentDataMapper;
     private final PaymentRepository paymentRepository;

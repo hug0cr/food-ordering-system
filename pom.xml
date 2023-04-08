@@ -36,6 +36,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- order service -->
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-domain-core</artifactId>
@@ -61,11 +62,18 @@
                 <artifactId>order-messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- payment service -->
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>payment-domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>payment-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- common -->
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>common-domain</artifactId>
@@ -76,6 +84,8 @@
                 <artifactId>common-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- infrastructure -->
+            <!-- kafka -->
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>kafka-producer</artifactId>
@@ -96,6 +106,7 @@
                 <artifactId>kafka-config-data</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
