@@ -1,4 +1,4 @@
-package com.food.ordering.system.order.service.application.rest.exception.handler;
+package com.food.ordering.system.order.service.application.exception.handler;
 
 import com.food.ordering.system.application.handler.ErrorDTO;
 import com.food.ordering.system.application.handler.GlobalExceptionHandler;
@@ -27,7 +27,7 @@ public class OrderGlobalExceptionHandler extends GlobalExceptionHandler {
     }
 
     @ResponseBody
-    @ExceptionHandler(value = {OrderDomainException.class})
+    @ExceptionHandler(value = {OrderNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorDTO handleException(OrderNotFoundException orderNotFoundException) {
         log.error(orderNotFoundException.getMessage(), orderNotFoundException);

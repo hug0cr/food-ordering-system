@@ -31,7 +31,6 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         return new OrderCreatedEvent(order, ZonedDateTime.now(ZoneId.of(UTC)), orderCreatedMessagePublisher);
     }
 
-
     @Override
     public OrderPaidEvent payOrder(Order order, DomainEventPublisher<OrderPaidEvent> orderPaidMessagePublisher) {
         order.pay();

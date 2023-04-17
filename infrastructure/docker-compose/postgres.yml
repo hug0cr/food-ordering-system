@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  food_ordering_system_db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    volumes:
+      - food_ordering_system_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+
+volumes:
+  food_ordering_system_db:
+    driver: local

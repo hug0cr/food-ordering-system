@@ -11,9 +11,6 @@
 
     <artifactId>order-container</artifactId>
 
-    <properties>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.food.ordering.system</groupId>
@@ -34,6 +31,10 @@
         <dependency>
             <groupId>com.food.ordering.system</groupId>
             <artifactId>order-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.food.ordering.system</groupId>
+            <artifactId>common-data-access</artifactId>
         </dependency>
 
         <dependency>

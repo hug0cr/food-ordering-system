@@ -29,7 +29,7 @@ public class OrderPaymentSaga implements SagaStep<PaymentResponse, OrderPaidEven
     @Override
     @Transactional
     public OrderPaidEvent process(PaymentResponse paymentResponse) {
-        log.info("Completingpaymentfor orderwith id: {}", paymentResponse.getOrderId());
+        log.info("Completing payment for order with id: {}", paymentResponse.getOrderId());
         Order order = orderSagaHelper.findOrder(paymentResponse.getOrderId());
         OrderPaidEvent orderPaidEvent = orderDomainService.payOrder(order, orderPaidRestaurantRequestMessagePublisher);
         orderSagaHelper.saveOrder(order);
