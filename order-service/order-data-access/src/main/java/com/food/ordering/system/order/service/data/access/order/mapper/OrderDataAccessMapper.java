@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.food.ordering.system.order.service.domain.entity.Order.FAILURE_MESSAGE_DELIMITER;
 
@@ -27,12 +28,12 @@ public class OrderDataAccessMapper {
                 .customerId(order.getCustomerId().getValue())
                 .restaurantId(order.getRestaurantId().getValue())
                 .trackingId(order.getTrackingId().getValue())
-                .address(deliveryAddressToAddressEntity(order.getDeliveryAdress()))
+                .address(deliveryAddressToAddressEntity(order.getDeliveryAddress()))
                 .price(order.getPrice().getAmount())
                 .items(orderItemsToOrderItemEntities(order.getItems()))
                 .orderStatus(order.getOrderStatus())
                 .failureMessages(order.getFailureMessages() != null ?
-                        String.join(FAILURE_MESSAGE_DELIMITER, order.getFailureMessages()) : null)
+                        String.join(FAILURE_MESSAGE_DELIMITER, order.getFailureMessages()) : "")
                 .build();
         orderEntity.getAddress().setOrder(orderEntity);
         orderEntity.getItems().forEach(orderItemEntity -> orderItemEntity.setOrder(orderEntity));
@@ -45,9 +46,9 @@ public class OrderDataAccessMapper {
                 .orderId(new OrderId(orderEntity.getId()))
                 .customerId(new CustomerId(orderEntity.getCustomerId()))
                 .restaurantId(new RestaurantId(orderEntity.getRestaurantId()))
-                .deliveryAdress(addressEntityTOdeliveryAddress(orderEntity.getAddress()))
+                .deliveryAddress(addressEntityToDeliveryAddress(orderEntity.getAddress()))
                 .price(new Money(orderEntity.getPrice()))
-                .items(orderItemsEntitiesToOrderItems(orderEntity.getItems()))
+                .items(orderItemEntitiesToOrderItems(orderEntity.getItems()))
                 .trackingId(new TrackingId(orderEntity.getTrackingId()))
                 .orderStatus(orderEntity.getOrderStatus())
                 .failureMessages(orderEntity.getFailureMessages().isEmpty() ? new ArrayList<>() :
@@ -77,21 +78,22 @@ public class OrderDataAccessMapper {
                 .toList();
     }
 
-    private StreetAddress addressEntityTOdeliveryAddress(OrderAddressEntity address) {
+    private StreetAddress addressEntityToDeliveryAddress(OrderAddressEntity address) {
         return new StreetAddress(address.getId(),
                 address.getStreet(),
                 address.getPostalCode(),
                 address.getCity());
     }
 
-    private List<OrderItem> orderItemsEntitiesToOrderItems(List<OrderItemEntity> items) {
+    private List<OrderItem> orderItemEntitiesToOrderItems(List<OrderItemEntity> items) {
         return items.stream()
                 .map(orderItemEntity -> OrderItem.Builder.builder()
                         .orderItemId(new OrderItemId(orderItemEntity.getId()))
                         .product(new Product(new ProductId(orderItemEntity.getProductId())))
                         .price(new Money(orderItemEntity.getPrice()))
+                        .quantity(orderItemEntity.getQuantity())
                         .subTotal(new Money(orderItemEntity.getSubTotal()))
                         .build())
-                .toList();
+                .collect(Collectors.toList());
     }
 }

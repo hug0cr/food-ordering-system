@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/order", produces = "application/vdn.api.v1+json")
+@RequestMapping(value = "/orders", produces = "application/vnd.api.v1+json")
 public class OrderController {
 
     private final OrderApplicationService orderApplicationService;
@@ -24,18 +24,17 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<CreateOrderResponse> createOrder(@RequestBody CreateOrderCommand createOrderCommand) {
-        log.info("Creating order for customer: {} at restaurant: {}",
-                createOrderCommand.getCustomerId(),
+        log.info("Creating order for customer: {} at restaurant: {}", createOrderCommand.getCustomerId(),
                 createOrderCommand.getRestaurantId());
         CreateOrderResponse createOrderResponse = orderApplicationService.createOrder(createOrderCommand);
-        log.info("Ordercreated with tracking id: {}", createOrderResponse.getOrderTrackId());
+        log.info("Order created with tracking id: {}", createOrderResponse.getOrderTrackId());
         return ResponseEntity.ok(createOrderResponse);
     }
 
     @GetMapping("/{trackingId}")
     public ResponseEntity<TrackOrderResponse> getOrderByTrackingId(@PathVariable UUID trackingId) {
-        TrackOrderResponse trackOrderResponse = orderApplicationService
-                .trackOrder(TrackOrderQuery.builder().orderTrackId(trackingId).build());
+        TrackOrderResponse trackOrderResponse =
+                orderApplicationService.trackOrder(TrackOrderQuery.builder().orderTrackId(trackingId).build());
         log.info("Returning order status with tracking id: {}", trackOrderResponse.getOrderTrackingId());
         return ResponseEntity.ok(trackOrderResponse);
     }

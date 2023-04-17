@@ -49,11 +49,12 @@ public class RestaurantApprovalRequestHelper {
         log.info("Processing restaurant approval for order id: {}", restaurantApprovalRequest.getOrderId());
         List<String> failureMessages = new ArrayList<>();
         Restaurant restaurant = findRestaurant(restaurantApprovalRequest);
-        OrderApprovalEvent orderApprovalEvent = restaurantDomainService.validateOrder(
-                restaurant,
-                failureMessages,
-                orderApprovedMessagePublisher,
-                orderRejectedMessagePublisher);
+        OrderApprovalEvent orderApprovalEvent =
+                restaurantDomainService.validateOrder(
+                        restaurant,
+                        failureMessages,
+                        orderApprovedMessagePublisher,
+                        orderRejectedMessagePublisher);
         orderApprovalRepository.save(restaurant.getOrderApproval());
         return orderApprovalEvent;
     }

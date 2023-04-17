@@ -33,7 +33,8 @@ public class OrderDataMapper {
     public Order createOrderCommandToOrder(CreateOrderCommand createOrderCommand) {
         return Order.Builder.builder()
                 .customerId(new CustomerId(createOrderCommand.getCustomerId()))
-                .deliveryAdress(orderAddressToStreetAddress(createOrderCommand.getAddress()))
+                .restaurantId(new RestaurantId(createOrderCommand.getRestaurantId()))
+                .deliveryAddress(orderAddressToStreetAddress(createOrderCommand.getAddress()))
                 .price(new Money(createOrderCommand.getPrice()))
                 .items(orderItemsToOrderItemsEntities(createOrderCommand.getItems()))
                 .build();

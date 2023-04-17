@@ -12,7 +12,6 @@
     <artifactId>restaurant-data-access</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>com.food.ordering.system</groupId>
             <artifactId>restaurant-application-service</artifactId>
@@ -30,6 +29,5 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-
     </dependencies>
 </project>

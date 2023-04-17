@@ -11,9 +11,6 @@
 
     <artifactId>order-application</artifactId>
 
-    <properties>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.food.ordering.system</groupId>
@@ -23,6 +20,7 @@
             <groupId>com.food.ordering.system</groupId>
             <artifactId>common-application</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

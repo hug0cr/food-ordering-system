@@ -22,7 +22,7 @@ public class CreditHistoryEntity {
     private UUID customerId;
     private BigDecimal amount;
     @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
+    private TransactionType type;
 
     @Override
     public boolean equals(Object o) {

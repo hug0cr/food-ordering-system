@@ -8,6 +8,7 @@ import com.food.ordering.system.order.service.domain.ports.output.message.publis
 import com.food.ordering.system.saga.SagaStep;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
@@ -27,6 +28,7 @@ public class OrderApprovalSaga implements SagaStep<RestaurantApprovalResponse, E
     }
 
     @Override
+    @Transactional
     public EmptyEvent process(RestaurantApprovalResponse restaurantApprovalResponse) {
         log.info("Approving order with id: {}", restaurantApprovalResponse.getOrderId());
         Order order = orderSagaHelper.findOrder(restaurantApprovalResponse.getOrderId());
@@ -36,6 +38,7 @@ public class OrderApprovalSaga implements SagaStep<RestaurantApprovalResponse, E
     }
 
     @Override
+    @Transactional
     public OrderCancelledEvent rollback(RestaurantApprovalResponse restaurantApprovalResponse) {
         log.info("Cancelling order with id: {}", restaurantApprovalResponse.getOrderId());
         Order order = orderSagaHelper.findOrder(restaurantApprovalResponse.getOrderId());
